@@ -9,10 +9,15 @@
             {% for post in posts %}
             <div class="post  mt-4 bg-light rounded border-0 ">
                 <h4 class="p-2">{{post.title}}</h4>
+                <h5 class="p-3">Posted by
+                    <a href="{% url 'profile_view' post.author.username %}">                     
+                        @{{post.author}}{{post.Aye}}
+                    </a>
+                </h5>
                 <p class="border-bottom p-2">{{post.text}}
                 </p>
                 <span class="d-flex">
-                    <i class="fa fa-thumbs-up p-2"> Like </i>
+                     Like 
                     <i class="fa fa-thumbs-down p-2"> Dislike </i>
                     <i class="fa fa-comments p-2"> Comment </i>
                     <i class="fa fa-share p-2 m-auto"> Share </i>

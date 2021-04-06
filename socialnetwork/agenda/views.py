@@ -1,16 +1,14 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView,TemplateView,DetailView
 from agenda.api.serializers import AgendaSerializer
-from agenda.models import Agenda
+from agenda.models import Agenda,Users,Aye,Nay
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import HttpResponse
 
 
-
-
-class AgendaList(APIView):
+class AgendaListAPIView(APIView):
     def get(self,request):
         agendas = Agenda.objects.all()
         serializer = AgendaSerializer(agendas,many = True)
@@ -18,7 +16,7 @@ class AgendaList(APIView):
 
 
 
-class AgendaDetails(APIView):
+class AgendaDetailsAPIView(APIView):
     def get_object(self,id):
         try:
             return Agenda.objects.get(id=id)
@@ -38,8 +36,17 @@ class AgendaDetails(APIView):
             return Response(serializer.data)
         return Response(serializer.errors,status = status.HTTP_400_BAD_REQUEST)
 
-def home(request):
-    context = {
-        'posts' :Agenda.objects.all()
-        }
-    return render(request,'social.html',context=context)
+
+class HomeListView(ListView):
+    model = Agenda
+    template_name = 'social.html'
+    context_object_name = 'posts'
+
+
+class UserDetailView(DetailView):
+    model = Users
+    template_name = 'profile.html'
+    context_object_name = 'user'
+
+    def get_object(self):
+        return Users.objects.get(username=self.kwargs.get("username"))

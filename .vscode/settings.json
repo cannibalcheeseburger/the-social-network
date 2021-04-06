@@ -1,0 +1,24 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "socialdb",
+            "database": "socialdb",
+            "username": "root",
+            "password": "iamajedi"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "development",
+            "database": "${workspaceFolder:social network restful}/socialnetwork/db.sqlite3"
+        }
+    ],
+    "jupyter.jupyterServerType": "local"
+}
