@@ -1,0 +1,15 @@
+{% extends "layout.html" %} {% block content %}
+<h1>
+    {{ agenda.title }}
+</h1>
+<h2>
+    {{agenda.author}}
+</h2>
+
+<h5>
+    {{agenda.date}}
+</h5>
+<p>{{agenda.text}}
+
+</p>
+likes {{Ayes}} Dislike {{Nays}}{% endblock %}

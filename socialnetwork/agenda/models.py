@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.text import slugify
 # Create your models here.
 
 
@@ -19,21 +19,16 @@ class Agenda(models.Model):
     text = models.TextField()
     date = models.DateTimeField(auto_now_add = True)
     author = models.ForeignKey(Users,on_delete=models.CASCADE)
+    ayes = models.ManyToManyField(Users,related_name='agenda_aye')
+    nays = models.ManyToManyField(Users,related_name='agenda_nay')
+    slug = models.SlugField(default='default',editable='False',max_length=100,null=False)
+
+
     def __str__(self):
         return self.title
 
-class Aye(models.Model):
-    agenda = models.ForeignKey(Agenda,on_delete=models.CASCADE)
-    user = models.ForeignKey(Users,on_delete=models.CASCADE)
-    registeredAt = models.DateTimeField(auto_now_add=True)
-    def __str__(self):
-        return str(self.id)
-
-
-class Nay(models.Model):
-    agenda = models.ForeignKey(Agenda,on_delete=models.CASCADE)
-    user = models.ForeignKey(Users,on_delete=models.CASCADE)
-    registeredAt = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return str(self.id)
+  
+    def save(self, *args, **kwargs):
+        value = self.title
+        self.slug = slugify(value,allow_unicode=True)
+        super().save(*args, **kwargs)

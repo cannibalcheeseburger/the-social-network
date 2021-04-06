@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView,TemplateView,DetailView
 from agenda.api.serializers import AgendaSerializer
-from agenda.models import Agenda,Users,Aye,Nay
+from agenda.models import Agenda,Users
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -50,3 +50,18 @@ class UserDetailView(DetailView):
 
     def get_object(self):
         return Users.objects.get(username=self.kwargs.get("username"))
+
+
+class AgendaDetailView(DetailView):
+    model = Agenda
+    template_name = 'agenda.html'
+    def get_context_data(self, **kwargs):
+            # Call the base implementation first to get a context
+            context = super().get_context_data(**kwargs)
+            # Add in a QuerySet of all the books
+            agenda = Agenda.objects.get(slug=self.kwargs.get("slug"))
+            context['agenda'] = agenda
+            context['Ayes'] = agenda.ayes.all().count()
+            context['Nays'] = agenda.nays.all().count()
+
+            return context
