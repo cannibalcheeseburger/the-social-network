@@ -7,16 +7,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import HttpResponse
 
-
-
-
 class AgendaList(APIView):
     def get(self,request):
         agendas = Agenda.objects.all()
         serializer = AgendaSerializer(agendas,many = True)
         return Response(serializer.data)
-
-
 
 class AgendaDetails(APIView):
     def get_object(self,id):
