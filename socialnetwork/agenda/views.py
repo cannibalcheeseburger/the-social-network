@@ -65,3 +65,9 @@ class AgendaDetailView(DetailView):
             context['Nays'] = agenda.nays.all().count()
 
             return context
+
+class TrendingListView(ListView):
+    template_name = 'trending.html'
+    context_object_name = 'posts'
+    def get_queryset(self):
+        return Agenda.objects.order_by('ayes')

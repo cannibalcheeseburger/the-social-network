@@ -1,0 +1,38 @@
+{% extends "layout.html" %} {% block content %}
+<div class="no-gutters">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <h2 class="text-center">Trending Agendas</h2>
+            <hr>
+
+            <!--Post-->
+
+            {% for post in posts %}
+            <a href="{% url 'agenda_view' post.slug %}">
+                <div class="post  mt-4 bg-light rounded border-0 ">
+                    <h4 class="p-2">{{post.title}}</h4>
+                    <h5 class="p-3">Posted by
+                        <a href="{% url 'profile_view' post.author.username %}">                     
+                        @{{post.author}}{{post.Aye}}
+                    </a>
+                    </h5>
+                    <p class="border-bottom p-2">{{post.text}}
+                    </p>
+                    <span class="d-flex">
+                     Like 
+                    <i class="fa fa-thumbs-down p-2"> Dislike </i>
+                    <i class="fa fa-comments p-2"> Comment </i>
+                    <i class="fa fa-share p-2 m-auto"> Share </i>
+                </span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+        <div class="col-6"></div>
+
+
+    </div>
+</div>
+
+{% endblock %}

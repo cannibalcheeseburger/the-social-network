@@ -1,6 +1,6 @@
 from django.urls import path
 from agenda.views import AgendaListAPIView, AgendaDetailsAPIView
-from agenda.views import HomeListView,UserDetailView,AgendaDetailView
+from agenda.views import HomeListView,UserDetailView,AgendaDetailView,TrendingListView
 
 
 urlpatterns = [
@@ -9,5 +9,5 @@ urlpatterns = [
     path('api/agenda/<int:id>/',AgendaDetailsAPIView.as_view()),
     path('users/<str:username>', UserDetailView.as_view(),name='profile_view'),
     path('agendas/<slug:slug>', AgendaDetailView.as_view(),name='agenda_view'),    
-    
+    path('trending/',TrendingListView.as_view(),name = 'trending')
 ]
