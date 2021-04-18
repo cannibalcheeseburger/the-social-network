@@ -70,4 +70,4 @@ class TrendingListView(ListView):
     template_name = 'trending.html'
     context_object_name = 'posts'
     def get_queryset(self):
-        return Agenda.objects.order_by('ayes')
+        return Agenda.objects.all().order_by('ayes')
