@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import HttpResponse
+from django.db.models import Count
 
 
 class AgendaListAPIView(APIView):
@@ -70,4 +71,10 @@ class TrendingListView(ListView):
     template_name = 'trending.html'
     context_object_name = 'posts'
     def get_queryset(self):
-        return Agenda.objects.all().order_by('ayes')
+        return Agenda.objects.all() \
+                .annotate(count=Count('ayes')) \
+                .order_by('-count')
+
+
+
+
