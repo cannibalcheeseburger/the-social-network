@@ -191,5 +191,5 @@ def user_follower(request,username):
     return render(request,'followers.html',{'followers':followers})
 
 def user_following(request,username):
-    followings = UserFollowing.objects.filter(following=username)
+    followings = UserFollowing.objects.filter(following_user=username)
     return render(request,'followings.html',{'followings':followings})
