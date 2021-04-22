@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.db.models import Count
 from .forms import AgendaCreateForm
 from django.contrib.auth import logout
+
 class AgendaListAPIView(APIView):
     def get(self,request):
         agendas = Agenda.objects.all()
@@ -58,6 +59,7 @@ def user_profile(request,username):
     context = {'user':user,
                 'posts':posts}
     return render(request,'profile.html',context)
+
 class AgendaDetailView(DetailView):
     model = Agenda
     template_name = 'agenda.html'

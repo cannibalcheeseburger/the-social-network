@@ -121,6 +121,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+AUTH_USER_MODEL = 'agenda.users'
+
+import os.path
+
+STATIC_ROOT = ''
+
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL = 'agenda.users'
+STATICFILES_DIRS = ( os.path.join('static'), )
+
+
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
