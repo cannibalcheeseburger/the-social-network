@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import HttpResponse
 from django.db.models import Count
-from .forms import AgendaCreateForm,LoginForm,RegisterForm
+from .forms import AgendaCreateForm,LoginForm,RegisterForm,AyeCommentForm,NayCommentForm
 from django.contrib.auth import logout,authenticate,login
 from django.contrib.auth.hashers import make_password
 
@@ -61,7 +61,11 @@ def user_profile(request,username):
     context = {'user':user,
                 'posts':posts}
     return render(request,'profile.html',context)
+<<<<<<< HEAD
 
+=======
+"""
+>>>>>>> bdc15e6bf0d2b464ae30f05f5bf739bf671bcbd2
 class AgendaDetailView(DetailView):
     model = Agenda
     template_name = 'agenda.html'
@@ -71,9 +75,42 @@ class AgendaDetailView(DetailView):
             # Add in a QuerySet of all the books
             agenda = Agenda.objects.get(slug=self.kwargs.get("slug"))
             context['agenda'] = agenda
-            context['Ayes'] = Aye.objects.filter(agenda=agenda).count()
-            context['Nays'] = Nay.objects.filter(agenda=agenda).count()
+            context['Ayes'] = Aye.objects.filter(agenda=agenda)
+            context['Nays'] = Nay.objects.filter(agenda=agenda)
             return context
+"""
+
+def agenda_detail(request,slug):
+    agenda = Agenda.objects.get(slug=slug)
+    context = {}
+    context['agenda'] = agenda
+    context['Ayes'] = Aye.objects.filter(agenda=agenda)
+    context['Nays'] = Nay.objects.filter(agenda=agenda)
+    if request.method == 'POST':
+        form1 = AyeCommentForm(request.POST)
+        form2 = NayCommentForm(request.POST)
+        if "naybt" in request.POST:        
+            if form2.is_valid():
+                comment = form2.cleaned_data['comment']
+                nay = Nay(user=request.user,comments=comment,agenda=agenda)
+                nay.save()
+        if "ayebt" in request.POST:
+            if form1.is_valid():
+                comment = form1.cleaned_data['comment']
+                aye = Aye(user=request.user,comments=comment,agenda=agenda)
+                aye.save()
+                return render(request, 'agenda.html',context)
+        
+      
+                return render(request, 'agenda.html',context)
+
+    form1 = AyeCommentForm()
+    form2 = NayCommentForm()
+    context['form1'] = form1
+    context['form2'] = form2 
+    return render(request, 'agenda.html',context)
+
+
 
 class TrendingListView(ListView):
     template_name = 'trending.html'
