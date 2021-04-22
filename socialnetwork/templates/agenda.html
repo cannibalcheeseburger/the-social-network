@@ -10,6 +10,9 @@
     {{agenda.date}}
 </h5>
 <p>{{agenda.text}}
-
 </p>
-likes {{Ayes}} Dislike {{Nays}}{% endblock %}
+
+
+likes {{Ayes}} Dislike {{Nays}} {% for Ay in Aye%}
+<P>By {{Ay.user.username}}:</P>
+<P>{{Ay.comments}}</P> {% endfor %} {% endblock %}

@@ -72,6 +72,7 @@ class AgendaDetailView(DetailView):
             context['agenda'] = agenda
             context['Ayes'] = Aye.objects.filter(agenda=agenda).count()
             context['Nays'] = Nay.objects.filter(agenda=agenda).count()
+            context['Aye'] = Aye.objects.filter(agenda=agenda)
             return context
 
 class TrendingListView(ListView):
