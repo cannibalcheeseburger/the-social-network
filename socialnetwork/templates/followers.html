@@ -1,0 +1,10 @@
+{% extends "layout.html" %} {% block content %}
+<h2>
+    Following
+</h2> {% for follower in followers %}
+
+<h4 class="p-2">
+    <a href='{% url "profile_view"  follower.following.username  %}'>{{follower.following.username}}</a>
+</h4>
+
+{% endfor %} {% endblock %}

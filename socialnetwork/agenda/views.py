@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.views.generic import ListView,TemplateView,DetailView
 from agenda.api.serializers import AgendaSerializer
-from agenda.models import Agenda,Users,Aye,Nay
+from agenda.models import Agenda,Users,Aye,Nay,UserFollowing
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -45,6 +45,16 @@ class HomeListView(ListView):
     context_object_name = 'posts'
     ordering = ['-id']
 
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            follower_user_ids = UserFollowing.objects.filter(following_user_id = self.request.user)\
+                                                    .values_list('user_id', flat=True)\
+                                                    .distinct()
+            agenda = Agenda.objects.filter(author_id__in=follower_user_ids)
+        else:
+            agenda = Agenda.objects.all()
+        return agenda
+
 """
 class UserDetailView(DetailView):
     model = Users
@@ -83,6 +93,8 @@ def agenda_detail(request,slug):
     context['Ayes'] = Aye.objects.filter(agenda=agenda)
     context['Nays'] = Nay.objects.filter(agenda=agenda)
     if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return redirect('login')
         form1 = AyeCommentForm(request.POST)
         form2 = NayCommentForm(request.POST)
         if "naybt" in request.POST:        
@@ -172,3 +184,12 @@ def Logout(request):
     if request.user.is_authenticated:
         logout(request)
     return redirect('home')
+
+
+def user_follower(request,username):
+    followers = UserFollowing.objects.filter(user=username)
+    return render(request,'followers.html',{'followers':followers})
+
+def user_following(request,username):
+    followings = UserFollowing.objects.filter(following=username)
+    return render(request,'followings.html',{'followings':followings})
