@@ -2,21 +2,37 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3 bg-light main_left_sidebar m-1">
+        <div class="col-md-3 bg-white main_left_sidebar m-1">
             <h5>Left</h5>
         </div>        
 
-        <div class="col-12 col-md-6 bg-light main_posts m-1">
+        <div class="col-12 col-md-6 main_posts m-1">
             
             {% for post in posts %}
             
             <div class="card p-3 h-25 mb-5">
-                <h3 class="card-title"> {{post.title}} </h3>
-                <a href="{% url 'agenda_view' post.slug %}">ff</a>
-                <h5 class="p-3">Posted by: <a href="{% url 'profile_view' post.author.username %}">                     
-                    @{{post.author}}{{post.Aye}}
-                </a>
-                </h5>
+                
+                <span class="d-flex">
+                    <img src="/media/default.jpg" alt="">
+                    
+                    <a href="{% url 'agenda_view' post.slug %}">
+                        <h5 class="card-title"> {{post.title}} &nbsp;&nbsp;| &nbsp;&nbsp;</h5>
+                    </a>
+
+                    <p>
+                        <a href="{% url 'profile_view' post.author.username %}">                     
+                            {{post.author}}
+                            </a>
+                    </p>
+                    
+                </span>
+               
+                    <p class="card-date">               
+                        {{post.date}}
+                    </p>
+
+                
+
                 <p class="card-text">{{post.text}}</p>
                 
             </div>
@@ -25,7 +41,7 @@
 
         </div>
 
-        <div class="col-md-2 bg-light main_right_sidebar m-1">
+        <div class="col-md-2 main_right_sidebar m-1 bg-white">
             <h5>right</h5>
         </div>        
 
