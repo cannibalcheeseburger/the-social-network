@@ -70,6 +70,9 @@ def user_profile(request,username):
     posts = Agenda.objects.filter(author=user)
     context = {'user':user,
                 'posts':posts}
+    if request.user.is_authenticated:
+        context['is_following'] = UserFollowing.objects.filter(following_user=request.user).filter(user=user).exists()
+
     return render(request,'profile.html',context)
 """
 class AgendaDetailView(DetailView):
@@ -193,3 +196,28 @@ def user_follower(request,username):
 def user_following(request,username):
     followings = UserFollowing.objects.filter(following_user=username)
     return render(request,'followings.html',{'followings':followings})
+
+def follow_user(request,username):
+    if request.user.is_authenticated:
+        user = Users.objects.get(username=username)
+        is_following= UserFollowing.objects.filter(following_user=request.user).filter(user=user).exists()
+        if not is_following:
+            follow = UserFollowing(user=user,following_user=request.user)
+            follow.save()
+            
+        return redirect('profile_view',username = username)
+    else:
+        return redirect('login')
+
+
+def unfollow_user(request,username):
+    if request.user.is_authenticated:
+        user = Users.objects.get(username=username)
+        is_following= UserFollowing.objects.filter(following_user=request.user).filter(user=user).exists()
+        if  is_following:
+            follow = UserFollowing.objects.get(user=user,following_user=request.user)
+            follow.delete()
+        return redirect('profile_view',username=username)
+
+    else:
+        return redirect('login')

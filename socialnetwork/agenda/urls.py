@@ -2,7 +2,7 @@ from django.urls import path
 from agenda.views import AgendaListAPIView, AgendaDetailsAPIView
 from agenda.views import HomeListView,TrendingListView, agenda_detail
 from agenda.views import create_agenda,Logout,user_profile,login_user,register_user
-from agenda.views import user_follower,user_following
+from agenda.views import user_follower,user_following,follow_user,unfollow_user
 #AgendaDetailView,
 
 urlpatterns = [
@@ -16,6 +16,8 @@ urlpatterns = [
     path('agendas/<slug:slug>', agenda_detail,name='agenda_view'),    
     path('trending/',TrendingListView.as_view(),name = 'trending'),
     path('create/',create_agenda,name = 'create'),
+    path('follow/<str:username>', follow_user,name='follow'),
+    path('unfollow/<str:username>', unfollow_user,name='unfollow'),
     path('login/',login_user,name = 'login'),
     path('register/',register_user,name  = 'register'),
     path('logout/',Logout,name = 'logout')
