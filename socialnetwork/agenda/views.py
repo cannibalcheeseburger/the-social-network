@@ -7,8 +7,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import HttpResponse
 from django.db.models import Count
-from .forms import AgendaCreateForm
-from django.contrib.auth import logout
+from .forms import AgendaCreateForm,LoginForm,RegisterForm
+from django.contrib.auth import logout,authenticate,login
+from django.contrib.auth.hashers import make_password
 
 class AgendaListAPIView(APIView):
     def get(self,request):
@@ -42,6 +43,7 @@ class HomeListView(ListView):
     model = Agenda
     template_name = 'social.html'
     context_object_name = 'posts'
+    ordering = ['-id']
 
 """
 class UserDetailView(DetailView):
@@ -95,6 +97,42 @@ def create_agenda(request):
             return redirect('home')
     form = AgendaCreateForm()
     return render(request, 'create.html',{'form':form})
+"""
+def login_user(request):
+    user = Users.objects.get(username='ranu')
+    password = make_password('123')
+    user.password = password
+    user.save()
+"""
+def login_user(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)           
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+    form = LoginForm()
+    return render(request, 'login.html',{'form':form})
+
+def register_user(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+
+            password1 = form.cleaned_data['password1']
+            password2 = form.cleaned_data['password2']
+            if password1 == password2:
+                password = make_password(password1)
+                user = Users(username=username,email=email,password=password)
+                user.save()
+                return redirect('login')
+    form = RegisterForm()
+    return render(request, 'register.html',{'form':form})
 
 
 def Logout(request):
