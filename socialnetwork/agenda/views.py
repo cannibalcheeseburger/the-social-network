@@ -61,11 +61,7 @@ def user_profile(request,username):
     context = {'user':user,
                 'posts':posts}
     return render(request,'profile.html',context)
-<<<<<<< HEAD
-
-=======
 """
->>>>>>> bdc15e6bf0d2b464ae30f05f5bf739bf671bcbd2
 class AgendaDetailView(DetailView):
     model = Agenda
     template_name = 'agenda.html'

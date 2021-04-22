@@ -1,5 +1,6 @@
 {% extends "layout.html" %} {% block content %}
 
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-3 bg-white main_left_sidebar m-1">
@@ -10,13 +11,13 @@
             
             {% for post in posts %}
             
-            <div class="card p-3 h-25 mb-5">
+            <div class="card p-3 mb-5">
                 
-                <span class="d-flex">
+                <span class="d-flex card-head">
                     <img src="/media/default.jpg" alt="">
                     
                     <a href="{% url 'agenda_view' post.slug %}">
-                        <h5 class="card-title"> {{post.title}} &nbsp;&nbsp;| &nbsp;&nbsp;</h5>
+                        <h5 class="card-title"> {{post.title}} </h5>
                     </a>
 
                     <p>
@@ -24,13 +25,11 @@
                             {{post.author}}
                             </a>
                     </p>
-                    
-                </span>
-               
-                    <p class="card-date">               
-                        {{post.date}}
-                    </p>
 
+                    <p class="card-date">               
+                        {{post.date.date}}
+                    </p>
+                </span>
                 
 
                 <p class="card-text">{{post.text}}</p>
@@ -41,9 +40,9 @@
 
         </div>
 
-        <div class="col-md-2 main_right_sidebar m-1 bg-white">
+        <!-- <div class="col-md-2 main_right_sidebar m-1 bg-white">
             <h5>right</h5>
-        </div>        
+        </div>         -->
 
     </div>
 </div>
