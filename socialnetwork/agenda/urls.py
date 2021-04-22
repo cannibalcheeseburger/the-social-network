@@ -1,7 +1,7 @@
 from django.urls import path
 from agenda.views import AgendaListAPIView, AgendaDetailsAPIView
 from agenda.views import HomeListView,AgendaDetailView,TrendingListView
-from agenda.views import create_agenda,Logout,user_profile
+from agenda.views import create_agenda,Logout,user_profile,login_user,register_user
 
 
 urlpatterns = [
@@ -13,5 +13,7 @@ urlpatterns = [
     path('agendas/<slug:slug>', AgendaDetailView.as_view(),name='agenda_view'),    
     path('trending/',TrendingListView.as_view(),name = 'trending'),
     path('create/',create_agenda,name = 'create'),
+    path('login/',login_user,name = 'login'),
+    path('register/',register_user,name  = 'register'),
     path('logout/',Logout,name = 'logout')
 ]
