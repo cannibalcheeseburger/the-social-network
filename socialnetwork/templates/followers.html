@@ -4,7 +4,7 @@
 </h2> {% for follower in followers %}
 
 <h4 class="p-2">
-    <a href='{% url "profile_view"  follower.following.username  %}'>{{follower.following.username}}</a>
+    <a href='{% url "profile_view"  follower.following_user.username  %}'>{{follower.following_user.username}}</a>
 </h4>
 
 {% endfor %} {% endblock %}
