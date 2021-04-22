@@ -13,3 +13,9 @@ class RegisterForm(forms.Form):
     email = forms.EmailField(label='email')
     password1 = forms.CharField(label ='password1',max_length=30)
     password2 = forms.CharField(label ='password2',max_length=30)
+
+class AyeCommentForm(forms.Form):
+    comment = forms.CharField(label ='comment',max_length=255,widget=forms.Textarea)
+
+class NayCommentForm(forms.Form):
+    comment = forms.CharField(label ='comment',max_length=255,widget=forms.Textarea)
