@@ -9,6 +9,15 @@
 <h3>
     Email: {{user.email}}
 </h3>
+<h3>
+    Followers:
+    <a href="{% url 'followers' user.username %}">{{user.following.count}} </a></h3>
+
+<h3>
+    Following:
+    <a href="{% url 'following' user.username %}">{{user.follower.count}}</a>
+</h3>
+
 
 
 <h2 class="text-center">Recent Posts by {{user.username}}</h2>

@@ -49,3 +49,11 @@ class Nay(models.Model):
     @property
     def nay_count(self):
         return self.agenda.count()
+
+
+class UserFollowing(models.Model):
+    user = models.ForeignKey(Users, on_delete=models.CASCADE,related_name='following')
+    following_user = models.ForeignKey(Users, on_delete=models.CASCADE,related_name='follower')
+    created = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return str(self.id)
