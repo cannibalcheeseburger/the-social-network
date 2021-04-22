@@ -70,9 +70,8 @@ class AgendaDetailView(DetailView):
             # Add in a QuerySet of all the books
             agenda = Agenda.objects.get(slug=self.kwargs.get("slug"))
             context['agenda'] = agenda
-            context['Ayes'] = Aye.objects.filter(agenda=agenda).count()
-            context['Nays'] = Nay.objects.filter(agenda=agenda).count()
-            context['Aye'] = Aye.objects.filter(agenda=agenda)
+            context['Ayes'] = Aye.objects.filter(agenda=agenda)
+            context['Nays'] = Nay.objects.filter(agenda=agenda)
             return context
 
 class TrendingListView(ListView):

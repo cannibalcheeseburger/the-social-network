@@ -13,6 +13,14 @@
 </p>
 
 
-likes {{Ayes}} Dislike {{Nays}} {% for Ay in Aye%}
-<P>By {{Ay.user.username}}:</P>
-<P>{{Ay.comments}}</P> {% endfor %} {% endblock %}
+likes {{Ayes.count}} Dislike {{Nays.count}}
+<div class="row">
+    <div class="col-sm-6">
+        AYES {% for Aye in Ayes %}
+        <P>By {{Aye.user.username}}:</P>
+        <P>{{Aye.comments}}</P> {% endfor %} </div>
+    <div class="col-sm-6"> Nayes {% for Nay in Nays %}
+        <P>By {{Nay.user.username}}:</P>
+        <P>{{Nay.comments}}</P> {% endfor %}</div>
+</div>
+{% endblock %}
