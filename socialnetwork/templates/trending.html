@@ -1,11 +1,58 @@
 {% extends "layout.html" %} {% block content %}
-<div class="no-gutters">
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 bg-light trend_left_sidebar m-1">
+            <h5></h5>
+        </div>        
+
+        <div class="col-12 col-md-6 trend_posts m-1">
+            <h2 class="text-center mb-3">Trending Agendas</h2>
+            {% for post in posts %}
+            
+            <div class="card p-3 mb-5">
+                
+                <span class="d-flex card-head">
+                    <img src="/media/default.jpg" alt="">
+                    
+                    <a href="{% url 'agenda_view' post.slug %}">
+                        <h5 class="card-title"> {{post.title}} </h5>
+                    </a>
+
+                    <p>
+                        <a href="{% url 'profile_view' post.author.username %}">                     
+                            {{post.author}}
+                            </a>
+                    </p>
+
+                    <p class="card-date">               
+                        {{post.date.date}}
+                    </p>
+                </span>
+                
+
+                <p class="card-text">{{post.text}}</p>
+                
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <!-- <div class="col-md-2 main_right_sidebar m-1 bg-white">
+            <h5>right</h5>
+        </div>         -->
+
+    </div>
+</div>
+
+<!-- <div class="no-gutters">
     <div class="row">
         <div class="col-12 col-md-6">
             <h2 class="text-center">Trending Agendas</h2>
             <hr>
 
-            <!--Post-->
+          
 
             {% for post in posts %}
             <a href="{% url 'agenda_view' post.slug %}">
@@ -33,6 +80,6 @@
 
 
     </div>
-</div>
+</div> -->
 
 {% endblock %}
