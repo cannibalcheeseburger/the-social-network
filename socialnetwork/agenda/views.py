@@ -50,9 +50,10 @@ class HomeListView(ListView):
             follower_user_ids = UserFollowing.objects.filter(following_user_id = self.request.user)\
                                                     .values_list('user_id', flat=True)\
                                                     .distinct()
-            agenda = Agenda.objects.filter(author_id__in=follower_user_ids)
-        else:
-            agenda = Agenda.objects.all()
+            if  follower_user_ids:
+                agenda = Agenda.objects.filter(author_id__in=follower_user_ids)
+                return agenda
+            agenda = Agenda.objects.all().order_by('-date')
         return agenda
 
 """
@@ -72,6 +73,8 @@ def user_profile(request,username):
                 'posts':posts}
     if request.user.is_authenticated:
         context['is_following'] = UserFollowing.objects.filter(following_user=request.user).filter(user=user).exists()
+        context['followers_count'] = UserFollowing.objects.filter(user=user).count()
+        context['following_count'] = UserFollowing.objects.filter(following_user=user).count()
 
     return render(request,'profile.html',context)
 """

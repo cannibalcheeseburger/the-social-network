@@ -9,7 +9,7 @@
                 <div class="media align-items-end profile-head">
                     <div class="profile mr-3">
                         <img src="/media/default.jpg" alt="..." width="130" class="rounded mb-2 img-thumbnail">
-                        
+
                     </div>
                     <div class="media-body mb-5 text-white">
                         <h4 class="mt-0 mb-0">{{user.name}}</h4>
@@ -39,12 +39,17 @@
 
                     </li>
                     <li class="list-inline-item">
-                        <h5 class="font-weight-bold mb-0 d-block">{{user.follower.count}}</h5><small class="text-muted">
+                        <a href="{% url 'followers' user.username %}">
+                            <h5 class="font-weight-bold mb-0 d-block">{{followers_count}}</h5><small class="text-muted">
                             </i>Followers</small>
+                        </a>
                     </li>
                     <li class="list-inline-item">
-                        <h5 class="font-weight-bold mb-0 d-block">{{user.following.count}}</h5><small
-                            class="text-muted"> </i>Following</small>
+                        <a href="{% url 'following' user.username %}">
+
+                            <h5 class="font-weight-bold mb-0 d-block">{{following_count}}</h5><small class="text-muted"> </i>Following</small>
+
+                        </a>
                     </li>
                 </ul>
             </div>
