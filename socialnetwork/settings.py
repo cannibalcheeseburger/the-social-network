@@ -52,7 +52,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_heroku.settings(locals())'
 
 ]
 
@@ -139,3 +138,6 @@ mimetypes.add_type("text/css", ".css", True)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+import django_heroku
+
+django_heroku.settings(locals())
