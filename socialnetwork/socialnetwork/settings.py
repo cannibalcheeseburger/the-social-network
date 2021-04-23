@@ -128,8 +128,7 @@ AUTH_USER_MODEL = 'agenda.users'
 
 import os.path
 
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-
+STATIC_ROOT =  os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = ( os.path.join('static'), )
