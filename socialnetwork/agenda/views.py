@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import HttpResponse
 from django.db.models import Count
-from .forms import AgendaCreateForm,LoginForm,RegisterForm,AyeCommentForm,NayCommentForm
+from .forms import AgendaCreateForm,LoginForm,RegisterForm,AyeCommentForm,NayCommentForm,EditProfileForm
 from django.contrib.auth import logout,authenticate,login
 from django.contrib.auth.hashers import make_password
 
@@ -91,6 +91,19 @@ class AgendaDetailView(DetailView):
             context['Nays'] = Nay.objects.filter(agenda=agenda)
             return context
 """
+
+def edit_profile(request):
+    if request.user.is_authenticated:
+        form = EditProfileForm()
+        user = Users.objects.get(username=request.user.username)
+        if request.method == 'POST':
+            form = EditProfileForm(request.POST,instance = user)
+            if form.is_valid():
+                form.save()
+                return redirect('profile_view',username = request.user.username)
+        return render(request,'edit_profile.html',{'form':form})
+    else:
+        return redirect('login')
 
 def agenda_detail(request,slug):
     agenda = Agenda.objects.get(slug=slug)

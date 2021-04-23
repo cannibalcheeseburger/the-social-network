@@ -8,7 +8,7 @@
             <div class="px-4 pt-0 pb-4 cover">
                 <div class="media align-items-end profile-head">
                     <div class="profile mr-3">
-                        <img src="/media/default.jpg" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                        <img src="/media/{{user.image}}" alt="..." width="130" height="130" lass="rounded mb-2 img-thumbnail">
 
                     </div>
                     <div class="media-body mb-5 text-white">
@@ -30,6 +30,10 @@
                         <button type="button" class="btn btn-primary ">Follow</button>
                     </a>
                     {% endif %}
+                    {% if request.user.username == user.username %}
+                    <a href="{% url 'editprofile' %}">
+                        <button type="button" class="btn btn-success ">Edit profile</button>
+                    </a>{% endif %}
                 </span>
                 <ul class="list-inline mb-0">
                     <li class="list-inline-item">
