@@ -16,10 +16,13 @@
 <h3>
     Following:
     <a href="{% url 'following' user.username %}">{{user.follower.count}}</a>
-</h3>
-
-
-
+</h3>{% if is_following %}
+<a href="{% url 'unfollow' user.username %}">
+    <button type="button" class="btn btn-danger btn-lg">UnFollow</button>
+</a> {% else %}
+<a href="{% url 'follow' user.username %}">
+    <button type="button" class="btn btn-primary btn-lg">Follow</button>
+</a>{% endif %}
 <h2 class="text-center">Recent Posts by {{user.username}}</h2>
 <hr>
 
