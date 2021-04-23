@@ -53,7 +53,7 @@ class HomeListView(ListView):
             if  follower_user_ids:
                 agenda = Agenda.objects.filter(author_id__in=follower_user_ids)
                 return agenda
-            agenda = Agenda.objects.all().order_by('-date')
+        agenda = Agenda.objects.all().order_by('-date')
         return agenda
 
 """
