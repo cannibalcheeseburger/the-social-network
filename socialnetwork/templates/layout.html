@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static '/css/trending.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static '/css/profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/login.css' %}">
 
     {% if title%}
     <title>Countrymen-{{title}}</title>
@@ -24,7 +25,7 @@
 
 <body>
     <header class=" site-header no-gutters ">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark fsixed-top ">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fsixed-top">
             <div class="container ">
                 <a class="navbar-brand mr-4 " href="{% url 'home' %} ">Countrymen</a>
                 <button class="navbar-toggler " type="button " data-toggle="collapse " data-target="#navbarToggle " aria-controls="navbarToggle " aria-expanded="false " aria-label="Toggle navigation ">
@@ -35,7 +36,7 @@
                         <a class="nav-item nav-link " href="{% url 'trending' %}">Trending</a>
                         <a class="nav-item nav-link " href="{% url 'create' %}">Create</a>
 
-
+                        
                     </div>
                     <!-- Navbar Right Side -->
 
@@ -43,15 +44,22 @@
                 <div class="navbar-nav d-flex">
                     {% if request.user.is_authenticated %}
                     <a class="nav-item nav-link " href="{% url 'profile_view' request.user.username %}">{{request.user.username | title}}</a>
-                    <a class="nav-item nav-link " href="{% url 'logout' %}">Logout</a> {% else %}
+                    <a class="nav-item nav-link " href="{% url 'logout' %}">Logout</a> 
+                    {% else %}
+
+                    {% if not form_l %}
                     <a class="nav-item nav-link " href="{% url 'login' %}"><button class="btn btn-danger m-1">Login</button></a>
-                    <a class="nav-item nav-link " href="{% url 'register' %}"><button class="btn btn-warning m-1">Register</button></a> {% endif %}
+                    {% endif %}
+                    {% if not form_r %}
+                    <a class="nav-item nav-link " href="{% url 'register' %}"><button class="btn btn-warning m-1">Register</button></a> 
+                    {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </nav>
     </header>
 
-    <main role="main " class="container mt-4 ">
+    <main role="main " class="container mt-4">
        
             <div>
 

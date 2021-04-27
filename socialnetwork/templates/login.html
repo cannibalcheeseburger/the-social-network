@@ -1,6 +1,64 @@
 {% extends "layout.html" %} {% block content %}
-<form action="{% url 'login' %}" method="post">
-    {% csrf_token %} {{ form }}
-    <input type="submit" value="Submit">
-</form>
+
+<style>
+body{
+    background: white;
+}
+
+.form_head{
+    border-radius: 10px;
+    margin-bottom: 16px;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+}
+
+.form_body{
+    padding-top: 16px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+}
+
+.form_input{
+    padding-top: 16px;
+    line-height: 38px;
+}
+
+.form_icon{
+    width: 24px;
+    
+}
+
+</style>
+
+<div class="row col-md-4 offset-md-4">
+    <div class="form_head bg-dark">
+        <h4 class="text-center p-3 text-white">Welcome back!</h4>
+    </div>
+
+    <div class="form_body bg-light">
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+
+            <div class="d-flex mb-3 form_input">
+                <div class="">
+                    <span class=""><i class="fa fa-user form_icon"></i></span>
+                </div>
+                <input type="text" name="username" placeholder="Username..." class="form-control">
+            </div>
+
+            <div class=" d-flex mb-3 form_input">
+                <div class="">
+                    <span class=""><i class="fa fa-key form_icon"></i></span>
+                </div>
+                <input type="password" name="password" placeholder="Password..." class="form-control">
+            </div>
+
+            <div class="d-flex justify-content-center mt-3 login_container">
+                <input class="btn btn-danger my-3" type="submit" value="Login">
+            </div>
+        </form>
+    
+    </div>
+       
+</div>
+
 {% endblock %}
