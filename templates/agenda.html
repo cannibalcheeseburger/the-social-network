@@ -1,0 +1,34 @@
+{% extends "layout.html" %} {% block content %}
+<h1>
+    {{ agenda.title }}
+</h1>
+<h2>
+    {{agenda.author}}
+</h2>
+
+<h5>
+    {{agenda.date}}
+</h5>
+<p>{{agenda.text}}
+</p>
+
+
+likes {{Ayes.count}} Dislike {{Nays.count}}
+<div class="row">
+    <div class="col-sm-6">
+        <form action="{% url 'agenda_view' agenda.slug %}" method="post">
+            {% csrf_token %} {{ form1 }}
+            <input type="submit" name="ayebt" value=" Submit ">
+        </form>
+        AYES {% for Aye in Ayes %}
+        <P>By {{Aye.user.username}}:</P>
+        <P>{{Aye.comments}}</P> {% endfor %} </div>
+    <div class="col-sm-6 ">
+        <form action="{% url 'agenda_view' agenda.slug %} " method="post">
+            {% csrf_token %} {{ form2 }}
+            <input type="submit" name="naybt" value="Submit">
+        </form> Nayes {% for Nay in Nays %}
+        <P>By {{Nay.user.username}}:</P>
+        <P>{{Nay.comments}}</P> {% endfor %}</div>
+</div>
+{% endblock %}

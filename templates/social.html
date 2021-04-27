@@ -1,0 +1,87 @@
+{% extends "layout.html" %} {% block content %}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 bg-white main_left_sidebar m-1">
+            <h5>
+                <!--Empty for now-->
+            </h5>
+        </div>
+
+        <div class="col-12 col-md-6 main_posts m-1">
+
+            {% for post in posts %}
+
+            <div class="card p-3 mb-5">
+
+                <span class="d-flex card-head">
+                    <img src="/media/{{post.author.image}}" alt="">
+                    
+                    <a href="{% url 'agenda_view' post.slug %}">
+                        <h5 class="card-title"> {{post.title}} </h5>
+                    </a>
+
+                    <p>
+                        <a href="{% url 'profile_view' post.author.username %}">                     
+                            {{post.author}}
+                            </a>
+                    </p>
+
+                    <p class="card-date">               
+                        {{post.date.date}}
+                    </p>
+                </span>
+
+
+                <p class="card-text">{{post.text}}</p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <!-- <div class="col-md-2 main_right_sidebar m-1 bg-white">
+            <h5>right</h5>
+        </div>         -->
+
+    </div>
+</div>
+
+<!-- <div class="no-gutters mt-5">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <h2 class="text-center">Recent Posts</h2>
+            <hr>
+
+
+            {% for post in posts %}
+            <a href="{% url 'agenda_view' post.slug %}">
+                <div class="post  mt-4 bg-light rounded border-0 ">
+                    <h4 class="p-2">{{post.title}}</h4>
+                    <h5 class="p-3">Posted by
+                        <a href="{% url 'profile_view' post.author.username %}">                     
+                        @{{post.author}}{{post.Aye}}
+                    </a>
+                    </h5>
+                    <p class="border-bottom p-2">{{post.text}}
+                    </p>
+                    <span class="d-flex">
+                     Like 
+                    <i class="fa fa-thumbs-down p-2"> Dislike </i>
+                    <i class="fa fa-comments p-2"> Comment </i>
+                    <i class="fa fa-share p-2 m-auto"> Share </i>
+                </span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+        <div class="col-6"></div>
+
+
+    </div>
+</div> -->
+
+{% endblock %}

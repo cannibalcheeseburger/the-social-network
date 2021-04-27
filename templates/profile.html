@@ -1,0 +1,156 @@
+{% extends "layout.html" %} {% block content %}
+
+<div class="row py-5 px-4">
+    <div class="col-md-5 mx-auto">
+
+        <!-- Profile widget -->
+        <div class="bg-white shadow rounded overflow-hidden">
+            <div class="px-4 pt-0 pb-4 cover">
+                <div class="media align-items-end profile-head">
+                    <div class="profile mr-3">
+                        <img src="/media/{{user.image}}" alt="..." width="130" height="130" lass="rounded mb-2 img-thumbnail">
+
+                    </div>
+                    <div class="media-body mb-5 text-white">
+                        <h4 class="mt-0 mb-0">{{user.name}}</h4>
+                        <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>{{user.username}}</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="bg-light p-4 d-flex justify-content-end text-center">
+                <span class="mx-auto">
+                    {% if is_following %}
+                    <a href="{% url 'unfollow' user.username %}">
+                        <button type="button" class="btn btn-danger btn-lg">UnFollow</button>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'follow' user.username %}">
+                        <button type="button" class="btn btn-primary ">Follow</button>
+                    </a>
+                    {% endif %}
+                    {% if request.user.username == user.username %}
+                    <a href="{% url 'editprofile' %}">
+                        <button type="button" class="btn btn-success ">Edit profile</button>
+                    </a>{% endif %}
+                </span>
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+
+                        <h5 class="font-weight-bold mb-0 d-block">{{posts|length}}</h5><small class="text-muted">
+                            </i>Posts</small>
+
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="{% url 'followers' user.username %}">
+                            <h5 class="font-weight-bold mb-0 d-block">{{followers_count}}</h5><small class="text-muted">
+                            </i>Followers</small>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="{% url 'following' user.username %}">
+
+                            <h5 class="font-weight-bold mb-0 d-block">{{following_count}}</h5><small class="text-muted"> </i>Following</small>
+
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="py-4 px-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h5 class="mb-0">Recent posts</h5>
+                    <a href="#" class="btn btn-link text-muted">Show all</a>
+                </div>
+
+                <div>
+                    {% for post in posts %}
+                    <a href="{% url 'agenda_view' post.slug %}">
+                        <div class="post  mt-4 bg-light rounded border-0 ">
+                            <h4 class="p-2">{{post.title}}</h4>
+                            <h5 class="p-3">Posted by
+                                <a href="{% url 'profile_view' post.author.username %}">
+                                    @{{post.author}}{{post.Aye}}
+                                </a>
+                            </h5>
+                            <p class="border-bottom p-2">{{post.text}}
+                            </p>
+                            <span class="d-flex">
+                                Like
+                                <i class="fa fa-thumbs-down p-2"> Dislike </i>
+                                <i class="fa fa-comments p-2"> Comment </i>
+                                <i class="fa fa-share p-2 m-auto"> Share </i>
+                            </span>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+
+                <!-- <div>
+                    <div class="col-lg-6 mb-2 pr-lg-1"><img src="https://images.unsplash.com/photo-1469594292607-7bd90f8d3ba4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
+                    <div class="col-lg-6 mb-2 pl-lg-1"><img src="https://images.unsplash.com/photo-1493571716545-b559a19edd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
+                    <div class="col-lg-6 pr-lg-1 mb-2"><img src="https://images.unsplash.com/photo-1453791052107-5c843da62d97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
+                    <div class="col-lg-6 pl-lg-1"><img src="https://images.unsplash.com/photo-1475724017904-b712052c192a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <h1>
+    User: {{ user.username }}
+</h1>
+<h2>
+    Name: {{user.name}}
+</h2>
+
+<h3>
+    Email: {{user.email}}
+</h3>
+<h3>
+    Followers:
+    <a href="{% url 'followers' user.username %}">{{user.following.count}} </a></h3>
+
+<h3>
+    Following:
+    <a href="{% url 'following' user.username %}">{{user.follower.count}}</a>
+</h3>
+
+{% if is_following %}
+<a href="{% url 'unfollow' user.username %}">
+    <button type="button" class="btn btn-danger btn-lg">UnFollow</button>
+</a> 
+{% else %}
+<a href="{% url 'follow' user.username %}">
+    <button type="button" class="btn btn-primary btn-lg">Follow</button>
+</a>
+{% endif %}
+<h2 class="text-center">Recent Posts by {{user.username}}</h2>
+<hr>
+
+
+{% for post in posts %}
+<a href="{% url 'agenda_view' post.slug %}">
+    <div class="post  mt-4 bg-light rounded border-0 ">
+        <h4 class="p-2">{{post.title}}</h4>
+        <h5 class="p-3">Posted by
+            <a href="{% url 'profile_view' post.author.username %}">                     
+            @{{post.author}}{{post.Aye}}
+        </a>
+        </h5>
+        <p class="border-bottom p-2">{{post.text}}
+        </p>
+        <span class="d-flex">
+         Like 
+        <i class="fa fa-thumbs-down p-2"> Dislike </i>
+        <i class="fa fa-comments p-2"> Comment </i>
+        <i class="fa fa-share p-2 m-auto"> Share </i>
+    </span>
+    </div>
+</a>
+{% endfor %}
+</div> -->
+
+{% endblock %}
