@@ -68,5 +68,5 @@ http://127.0.0.1:8000/admin
 
 ## References
 
-[https://docs.djangoproject.com/en/3.2/](https://docs.djangoproject.com/en/3.2/)
-[MDN Docs](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Introduction)
+- [https://docs.djangoproject.com/en/3.2/](https://docs.djangoproject.com/en/3.2/)
+- [MDN Docs](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Introduction)
