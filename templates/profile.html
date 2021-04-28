@@ -21,6 +21,7 @@
 
             <div class="bg-light p-4 d-flex justify-content-end text-center">
                 <span class="mx-auto">
+                    {% if request.user.username != user.username%}
                     {% if is_following %}
                     <a href="{% url 'unfollow' user.username %}">
                         <button type="button" class="btn btn-danger btn-lg">UnFollow</button>
@@ -29,6 +30,7 @@
                     <a href="{% url 'follow' user.username %}">
                         <button type="button" class="btn btn-primary ">Follow</button>
                     </a>
+                    {% endif %}
                     {% endif %}
                     {% if request.user.username == user.username %}
                     <a href="{% url 'editprofile' %}">
@@ -43,26 +45,17 @@
 
                     </li>
                     <li class="list-inline-item">
-<<<<<<< HEAD:socialnetwork/templates/profile.html
-                        <h5 class="font-weight-bold mb-0 d-block">{{user.following.count}}</h5><small class="text-muted">
-=======
-                        <a href="{% url 'followers' user.username %}">
-                            <h5 class="font-weight-bold mb-0 d-block">{{followers_count}}</h5><small class="text-muted">
->>>>>>> master:templates/profile.html
+                        <a href="{% url 'followers' user.username %}" class="text-decoration-none">
+                            <h5 class="font-weight-bold mb-0 d-block text-muted">{{user.following.count}}</h5><small class="text-muted">
                             </i>Followers</small>
                         </a>
                     </li>
                     <li class="list-inline-item">
-<<<<<<< HEAD:socialnetwork/templates/profile.html
-                        <h5 class="font-weight-bold mb-0 d-block">{{user.follower.count}}</h5><small
-                            class="text-muted"> </i>Following</small>
-=======
-                        <a href="{% url 'following' user.username %}">
+                        <a href="{% url 'following' user.username %}" class="text-decoration-none">
 
-                            <h5 class="font-weight-bold mb-0 d-block">{{following_count}}</h5><small class="text-muted"> </i>Following</small>
+                            <h5 class="font-weight-bold mb-0 d-block text-muted">{{user.follower.count}}</h5><small class="text-muted"> </i>Following</small>
 
                         </a>
->>>>>>> master:templates/profile.html
                     </li>
                 </ul>
             </div>
