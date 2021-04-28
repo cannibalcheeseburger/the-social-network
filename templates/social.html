@@ -7,16 +7,16 @@
             <h5>
                 <!--Empty for now-->
             </h5>
-        </div>        
+        </div>
 
         <div class="col-12 col-md-6 main_posts m-1">
-            
+
             {% for post in posts %}
-            
+
             <div class="card p-3 mb-5">
-                
+
                 <span class="d-flex card-head">
-                    <img src="/media/default.jpg" alt="">
+                    <img src="/media/{{post.author.image}}" alt="">
                     
                     <a href="{% url 'agenda_view' post.slug %}">
                         <h5 class="card-title"> {{post.title}} </h5>
@@ -32,10 +32,10 @@
                         {{post.date.date}}
                     </p>
                 </span>
-                
+
 
                 <p class="card-text">{{post.text}}</p>
-                
+
             </div>
 
             {% endfor %}

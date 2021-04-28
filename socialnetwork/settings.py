@@ -26,7 +26,7 @@ SECRET_KEY = '@pun21ky&=^o^90n40a_kh49kwp1j_yitc8o*nuwa@nvz(=&9%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['countrymen.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -45,12 +45,14 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'socialnetwork.urls'
@@ -125,8 +127,7 @@ AUTH_USER_MODEL = 'agenda.users'
 
 import os.path
 
-STATIC_ROOT = ''
-
+STATIC_ROOT =  os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = ( os.path.join('static'), )
@@ -137,3 +138,6 @@ mimetypes.add_type("text/css", ".css", True)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+import django_heroku
+
+django_heroku.settings(locals())
