@@ -5,9 +5,7 @@ Social networking revolves allows like-minded individuals to be in touch with ea
 ## Authors
 
  - Akash Rana (185034)
- - D. Gunjan Jha (185100)
- - Dipesh Chopra (185015)
- - Lipkashi Dhiman (185069)
+ - Kashish Srivastava (185014)
 
 ## Installation
 
